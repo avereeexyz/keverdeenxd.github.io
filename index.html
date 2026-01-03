@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katniss | Quiet Signal</title>
+  <style>
+    :root {
+      /* Dark (void) defaults */
+      --bg: #030712;
+      --bg-alt: #020617;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --accent: #a855f7;
+      --accent-soft: rgba(88, 28, 135, 0.35);
+      --card-bg: rgba(15, 23, 42, 0.94);
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --shadow-soft: 0 26px 60px rgba(15, 23, 42, 0.9);
+      --blur: 18px;
+    }
+
+    [data-theme="light"] {
+      /* Light (lavender) */
+      --bg: #f5f3ff;
+      --bg-alt: #ede9fe;
+      --text: #111827;
+      --text-muted: #4b5563;
+      --accent: #8b5cf6;
+      --accent-soft: rgba(167, 139, 250, 0.25);
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --border-subtle: rgba(129, 140, 248, 0.5);
+      --shadow-soft: 0 22px 40px rgba(129, 140, 248, 0.25);
+      --blur: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background:
+        radial-gradient(circle at top, #111827, var(--bg)) fixed;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .background-orbit {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(60px);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+    }
+
+    /* Void / dark blobs */
+    .blob-1 {
+      width: 360px;
+      height: 360px;
+      top: -80px;
+      right: -40px;
+      background: radial-gradient(circle, #8b5cf6, transparent 60%);
+    }
+
+    .blob-2 {
+      width: 320px;
+      height: 320px;
+      bottom: -80px;
+      left: -60px;
+      background: radial-gradient(circle, #22d3ee, transparent 60%);
+    }
+
+    [data-theme="light"] .blob-1 {
+      background: radial-gradient(circle, #c4b5fd, transparent 60%);
+    }
+
+    [data-theme="light"] .blob-2 {
+      background: radial-gradient(circle, #f9a8d4, transparent 60%);
+      filter: blur(70px);
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 720px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at top left, var(--accent-soft), var(--card-bg));
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(var(--blur));
+      padding: 20px 22px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right,
+          rgba(148, 163, 184, 0.22),
+          transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .shell-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .dot-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #ef4444;
+    }
+    .dot:nth-child(2) {
+      background: #facc15;
+    }
+    .dot:nth-child(3) {
+      background: #22c55e;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.22);
+      padding: 4px 10px;
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    [data-theme="light"] .theme-toggle {
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .theme-toggle span.icon {
+      font-size: 14px;
+    }
+
+    .theme-toggle span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    .theme-toggle::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top,
+        rgba(255, 255, 255, 0.18),
+        transparent 70%);
+      opacity: 0;
+      transition: opacity 0.18s ease-out;
+    }
+
+    .theme-toggle:hover::after {
+      opacity: 1;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      background: rgba(15, 23, 42, 0.46);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    [data-theme="light"] .pill {
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.85);
+    }
+
+    .time {
+      opacity: 0.9;
+    }
+
+    .heading-block {
+      margin-bottom: 14px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 6px;
+      opacity: 0.95;
+    }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 16px;
+      background:
+        radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.58),
+          rgba(15, 23, 42, 0.28));
+    }
+
+    [data-theme="light"] .card {
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .card-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .tag-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-muted);
+    }
+
+    [data-theme="light"] .tag {
+      background: rgba(248, 250, 252, 0.96);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .link {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.34);
+      border: 1px solid transparent;
+      transition:
+        background 0.16s ease,
+        border-color 0.16s ease,
+        transform 0.12s ease;
+    }
+
+    [data-theme="light"] .link {
+      background: rgba(139, 92, 246, 0.08);
+    }
+
+    .link:hover {
+      background: rgba(139, 92, 246, 0.22);
+      border-color: rgba(139, 92, 246, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .footer-row {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.92;
+    }
+
+    .footer-row a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-row a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .shell {
+        padding: 18px 16px 20px;
+      }
+
+      .content-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-orbit">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <main class="shell">
+    <div class="shell-inner">
+      <div class="top-row">
+        <div class="dot-group">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="icon" id="themeIcon">🌙</span>
+          <span class="label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+
+      <div class="meta-row">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Online • Katniss</span>
+        </div>
+        <div class="time" id="timeDisplay">Ripley, UK • --:--</div>
+      </div>
+
+      <section class="heading-block">
+        <div class="eyebrow">A quiet signal in the noise</div>
+        <h1>Katniss’ corner — curated and a little dangerous</h1>
+        <p class="subtitle">
+          A minimal space shaped by late‑night code, lavender light, and the quiet discipline of someone who protects what matters.
+        </p>
+      </section>
+
+      <section class="content-grid">
+        <article class="card">
+          <div class="card-title">About me</div>
+          <div class="card-body">
+I’m Katniss — a trans lesbian with a sharp eye for aesthetics and a habit of building spaces that feel safe, intentional, and quietly powerful.
+
+Most of my work happens at night, when the world softens and the edges blur. I design, refine, and shape communities with care — especially the ones I stand in front of when it counts.
+
+I keep my life curated. Some things I share openly; others I hold close, especially the person who feels like home. Balance matters to me — warmth without noise, mystery without distance.
+          </div>
+
+          <div class="tag-row">
+            <span class="tag">Lavender‑minded</span>
+            <span class="tag">Night architect</span>
+            <span class="tag">Soft but guarded</span>
+            <span class="tag">Digital designer</span>
+            <span class="tag">Community protector</span>
+            <span class="tag">Quiet intensity</span>
+          </div>
+        </article>
+
+        <aside class="card">
+          <div class="card-title">Now</div>
+          <div class="card-body">
+Right now, I’m:
+• refining the spaces I call home, online and off
+• shaping digital rooms that feel safe and intentional
+• experimenting with aesthetics between softness and shadow
+• keeping my circle small and my boundaries sharp
+• building quietly, loving fiercely, and choosing what deserves my energy
+          </div>
+
+          <div class="links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">
+              <span>Portfolio</span>
+              <span>↗</span>
+            </a>
+            <a class="link" href="mailto:example@example.com">
+              <span>Email</span>
+              <span>✉</span>
+            </a>
+          </div>
+        </aside>
+      </section>
+
+      <div class="footer-row">
+        <div>Crafted by Katniss • Built with intention, silence, and a little lavender light</div>
+        <div>Theme: <span id="themeStatus">Dark</span> • Toggle above</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    const label = document.getElementById('themeLabel');
+    const status = document.getElementById('themeStatus');
+    const timeDisplay = document.getElementById('timeDisplay');
+
+    function applyStoredTheme() {
+      const stored = localStorage.getItem('katniss-theme');
+      if (!stored) return;
+      html.setAttribute('data-theme', stored);
+      updateThemeUI(stored);
+    }
+
+    function updateThemeUI(theme) {
+      const isDark = theme === 'dark';
+      icon.textContent = isDark ? '🌙' : '☀️';
+      label.textContent = isDark ? 'Dark' : 'Light';
+      status.textContent = isDark ? 'Void' : 'Lavender';
+    }
+
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('katniss-theme', next);
+      updateThemeUI(next);
+    }
+
+    toggle.addEventListener('click', toggleTheme);
+    applyStoredTheme();
+
+    function updateTime() {
+      const now = new Date();
+      const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+      const timeString = now.toLocaleTimeString([], options);
+      timeDisplay.textContent = `Ripley, UK • ${timeString}`;
+    }
+
+    updateTime();
+    setInterval(updateTime, 60000);
+  </script>
+</body>
+  </html>
