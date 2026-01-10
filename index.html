@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KatnissOS — Home</title>
+
+  <!-- Global + Theme CSS -->
   <link rel="stylesheet" href="global.css">
   <link rel="stylesheet" href="voidloght.css">
+
+  <!-- Presence + Window Scripts -->
   <script src="presence.js" defer></script>
   <script src="window.js" defer></script>
 </head>
@@ -17,6 +21,8 @@
 
     <!-- TOP BAR -->
     <div class="window-topbar">
+
+      <!-- macOS-style window controls -->
       <div class="window-controls">
         <span class="ctrl red"></span>
         <span class="ctrl yellow"></span>
@@ -27,6 +33,7 @@
       <div class="presence-orb-container">
         <div class="presence-orb" id="presenceOrb"></div>
 
+        <!-- Hover card -->
         <div class="presence-hover-card" id="presenceHover">
           <div class="ph-name">katniss_xd <span>• She/Her</span></div>
           <div class="ph-tagline">Designed for the girl who builds worlds.</div>
@@ -35,6 +42,7 @@
         </div>
       </div>
 
+      <!-- Page title -->
       <div class="window-title">Home</div>
     </div>
 
@@ -48,12 +56,13 @@
       <a href="socials.html">Socials</a>
     </nav>
 
-    <!-- MAIN LAYOUT -->
+    <!-- MAIN CONTENT GRID -->
     <div class="window-content home-grid">
 
-      <!-- LEFT COLUMN: IDENTITY -->
+      <!-- LEFT COLUMN -->
       <section class="home-column left">
 
+        <!-- Identity Card -->
         <div class="home-identity-card">
           <h1 class="home-name">katniss_xd</h1>
           <p class="home-pronouns">She/Her</p>
@@ -66,6 +75,7 @@
           </div>
         </div>
 
+        <!-- Currently Block -->
         <div class="home-currently-card">
           <h2 class="section-title">Currently</h2>
           <ul class="currently-list">
@@ -86,34 +96,40 @@
 
       </section>
 
-      <!-- RIGHT COLUMN: PANELS -->
+      <!-- RIGHT COLUMN -->
       <section class="home-column right">
 
+        <!-- Activity Overview -->
         <div class="home-panel">
           <h2 class="section-title">Activity overview</h2>
           <p class="panel-subtext">
             Discord presence, projects, and system info live in their own spaces — this home screen is your calm overview.
           </p>
+
           <div class="panel-grid">
             <a href="presence.html" class="panel-link">
               <h3>Presence</h3>
               <p>See your live Discord status and activity details.</p>
             </a>
+
             <a href="projects.html" class="panel-link">
               <h3>Projects</h3>
-              <p>Reserve space for whatever you decide to share later.</p>
+              <p>Reserved space for future creations.</p>
             </a>
+
             <a href="system.html" class="panel-link">
               <h3>System</h3>
               <p>Version, theme, and OS details for KatnissOS.</p>
             </a>
+
             <a href="about.html" class="panel-link">
               <h3>About</h3>
-              <p>Who you are, in your own words.</p>
+              <p>Your identity, expressed intentionally.</p>
             </a>
           </div>
         </div>
 
+        <!-- Voidloght Panel -->
         <div class="home-panel soft">
           <h2 class="section-title">Voidloght</h2>
           <p class="panel-subtext">
@@ -133,8 +149,8 @@
 
   </div>
 
+  <!-- Presence status text sync -->
   <script>
-    // Simple status text sync from presence
     window.KatnissPresence?.onUpdate((presence) => {
       const statusEl = document.getElementById("currentStatus");
       if (!statusEl) return;
