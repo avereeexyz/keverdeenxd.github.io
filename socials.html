@@ -27,11 +27,16 @@
     <section>
       <h2>Connect with Me</h2>
       <ul>
-        <li><a href="https://discord.com" target="_blank">Discord</a></li>
+        <li><a href="https://discord.gg/7MJUuVgj" target="_blank">Join My Discord Server</a></li>
         <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
         <li><a href="https://github.com" target="_blank">GitHub</a></li>
         <li><a href="mailto:katniss@example.com">Email Me</a></li>
       </ul>
+
+      <h2>My Discord Status</h2>
+      <div id="discord-status">
+        <p>Loading Discord status...</p>
+      </div>
     </section>
 
     <footer>
@@ -40,5 +45,44 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    // Your Discord User ID
+    const discordUserID = "1454841600974000159"; 
+
+    // Fetching data from Lanyard API using your Discord User ID
+    fetch(`https://api.lanyard.rest/v1/users/${discordUserID}`)
+      .then(response => response.json())
+      .then(data => {
+        const discordStatusElement = document.getElementById("discord-status");
+
+        if (data.data) {
+          const { activities, discord_status, avatar } = data.data;
+          const activity = activities ? activities[0] : null;
+          
+          // Construct the avatar URL
+          const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUserID}/${avatar}.png`;
+
+          // Display activity details (e.g., playing a game)
+          if (activity) {
+            discordStatusElement.innerHTML = `
+              <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
+              <p>Status: ${discord_status}</p>
+              <p>Playing: ${activity.name}</p>
+              <p>Details: ${activity.details}</p>
+            `;
+          } else {
+            discordStatusElement.innerHTML = `
+              <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
+              <p>Currently not playing any games.</p>
+            `;
+          }
+        } else {
+          discordStatusElement.innerHTML = "<p>Unable to fetch status. Please try again later.</p>";
+        }
+      })
+      .catch(() => {
+        document.getElementById("discord-status").innerHTML = "<p>Failed to fetch Discord status.</p>";
+      });
+  </script>
 </body>
-</html>
+        </html>
