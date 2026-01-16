@@ -1,3 +1,4 @@
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,15 +7,16 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #e0f7fa; /* Mint green background */
-  color: #004d40; /* Dark green text */
-  transition: background-color 0.3s, color 0.3s;
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Mint Green to Pink for Light Mode */
+  color: #004d40; /* Dark green text for readability */
+  transition: background 0.5s ease, color 0.5s ease; /* Smooth transition for background and text color */
 }
 
 header {
-  background-color: #80cbc4; /* Light mint green for header */
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Mint Green to Pink for Light Mode */
   padding: 20px;
   text-align: center;
+  transition: background 0.5s ease; /* Smooth transition */
 }
 
 h1 {
@@ -29,6 +31,11 @@ button.theme-toggle {
   cursor: pointer;
   font-size: 1.5rem;
   margin-top: 10px;
+  transition: all 0.3s ease; /* Button transition */
+}
+
+button.theme-toggle:hover {
+  transform: scale(1.1);
 }
 
 nav ul {
@@ -45,9 +52,11 @@ nav ul li a {
   color: #004d40; /* Dark green links */
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease; /* Smooth transition for link color */
 }
 
 nav ul li a:hover {
+  color: #ffb6c1; /* Pink hover effect */
   text-decoration: underline;
 }
 
@@ -73,39 +82,49 @@ a {
   color: #004d40;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease; /* Smooth color transition for links */
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #ffb6c1; /* Pink hover effect */
 }
 
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #80cbc4; /* Light mint green footer */
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Mint Green to Pink for Light Mode */
   margin-top: 30px;
+  transition: background 0.5s ease; /* Smooth footer background transition */
 }
 
 .dark-mode {
-  background-color: #004d40; /* Dark green background */
-  color: #e0f7fa; /* Mint green text */
+  background: linear-gradient(135deg, #b3e6b3, #3d1e55); /* Light Green to Dark Purple for Dark Mode */
+  color: #e0f7fa; /* Mint green text for dark mode */
 }
 
 .dark-mode header {
-  background-color: #004d40; /* Dark green header */
+  background: linear-gradient(135deg, #b3e6b3, #3d1e55); /* Dark Mode Header */
 }
 
 .dark-mode button.theme-toggle {
-  border-color: #e0f7fa; /* Mint green border */
-  color: #e0f7fa; /* Mint green text */
+  border-color: #e0f7fa; /* Light mint border in dark mode */
+  color: #e0f7fa; /* Light mint text */
 }
 
-.dark-mode a {
-  color: #e0f7fa; /* Mint green links */
+.dark-mode button.theme-toggle:hover {
+  background: #3d1e55; /* Dark purple background on hover */
+}
+
+.dark-mode nav ul li a {
+  color: #e0f7fa; /* Light mint links in dark mode */
+}
+
+.dark-mode nav ul li a:hover {
+  color: #ffb6c1; /* Light pink hover for dark mode */
 }
 
 .dark-mode footer {
-  background-color: #004d40; /* Dark green footer */
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green Footer */
 }
 
 @media (max-width: 600px) {
@@ -121,3 +140,12 @@ footer {
     font-size: 1rem;
   }
 }
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+body {
+  animation: fadeIn 0.5s ease-in;
+                              }
