@@ -7,8 +7,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Apple system font */
-  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Mint Green to Pink for Light Mode */
-  color: #333;
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green for Dark Mode */
+  color: #e0f7fa; /* Light text color */
   transition: background 0.5s ease, color 0.5s ease;
   font-size: 16px;
   height: 100vh;
@@ -23,26 +23,27 @@ body {
   max-width: 800px;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  transition: all 0.5s ease;
 }
 
 header {
-  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Mode Header */
   padding: 20px;
   text-align: center;
   border-radius: 16px 16px 0 0;
 }
 
 h1 {
-  font-size: 2rem;
-  color: #333;
+  font-size: 2.2rem;
+  color: #fff;
 }
 
 button.theme-toggle {
   background: none;
-  border: 2px solid #333;
-  color: #333;
+  border: 2px solid #e0f7fa;
+  color: #e0f7fa;
   padding: 10px 15px;
   cursor: pointer;
   font-size: 1.5rem;
@@ -53,7 +54,7 @@ button.theme-toggle {
 }
 
 button.theme-toggle:hover {
-  background-color: #e0f7fa;
+  background-color: #4e2d56; /* Darker accent color on hover */
   transform: scale(1.1);
 }
 
@@ -70,14 +71,14 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #333;
+  color: #e0f7fa;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #ffb6c1;
+  color: #ffb6c1; /* Neon accent hover effect */
 }
 
 section {
@@ -85,8 +86,8 @@ section {
 }
 
 h2 {
-  color: #333;
-  font-size: 1.5rem;
+  color: #e0f7fa;
+  font-size: 1.8rem;
   margin-bottom: 10px;
 }
 
@@ -99,7 +100,7 @@ ul li {
 }
 
 a {
-  color: #333;
+  color: #e0f7fa;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
@@ -112,39 +113,39 @@ a:hover {
 footer {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Mint Green to Pink for Light Mode */
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green for Dark Mode */
   margin-top: 30px;
   border-radius: 0 0 16px 16px;
 }
 
-.dark-mode {
-  background: linear-gradient(135deg, #b3e6b3, #3d1e55); /* Light Green to Dark Purple for Dark Mode */
-  color: #e0f7fa;
+.light-mode {
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
+  color: #333; /* Dark text for light mode */
 }
 
-.dark-mode header {
-  background: linear-gradient(135deg, #b3e6b3, #3d1e55); /* Dark Mode Header */
+.light-mode header {
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
 }
 
-.dark-mode button.theme-toggle {
-  border-color: #e0f7fa;
-  color: #e0f7fa;
+.light-mode button.theme-toggle {
+  border-color: #333;
+  color: #333;
 }
 
-.dark-mode button.theme-toggle:hover {
-  background-color: #3d1e55;
+.light-mode button.theme-toggle:hover {
+  background-color: #b3e6b3; /* Light mode hover effect */
 }
 
-.dark-mode nav ul li a {
-  color: #e0f7fa;
+.light-mode nav ul li a {
+  color: #333;
 }
 
-.dark-mode nav ul li a:hover {
+.light-mode nav ul li a:hover {
   color: #ffb6c1;
 }
 
-.dark-mode footer {
-  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green for Dark Mode */
+.light-mode footer {
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
 }
 
 @media (max-width: 600px) {
@@ -168,4 +169,4 @@ footer {
 
 body {
   animation: fadeIn 0.5s ease-in;
-                             }
+}
