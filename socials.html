@@ -46,10 +46,8 @@
 
   <script src="script.js"></script>
   <script>
-    // Your Discord User ID
     const discordUserID = "1454841600974000159"; 
 
-    // Fetching data from Lanyard API using your Discord User ID
     fetch(`https://api.lanyard.rest/v1/users/${discordUserID}`)
       .then(response => response.json())
       .then(data => {
@@ -59,10 +57,8 @@
           const { activities, discord_status, avatar } = data.data;
           const activity = activities ? activities[0] : null;
           
-          // Construct the avatar URL
           const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUserID}/${avatar}.png`;
 
-          // Display activity details (e.g., playing a game)
           if (activity) {
             discordStatusElement.innerHTML = `
               <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
@@ -85,4 +81,4 @@
       });
   </script>
 </body>
-        </html>
+  </html>
