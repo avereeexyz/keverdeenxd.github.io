@@ -20,7 +20,7 @@ body {
 
 .container {
   width: 90%;
-  max-width: 800px;
+  max-width: 900px;
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -38,6 +38,7 @@ header {
 h1 {
   font-size: 2.2rem;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 button.theme-toggle {
@@ -54,7 +55,7 @@ button.theme-toggle {
 }
 
 button.theme-toggle:hover {
-  background-color: #4e2d56; /* Darker accent color on hover */
+  background-color: #4e2d56;
   transform: scale(1.1);
 }
 
