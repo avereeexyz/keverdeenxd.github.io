@@ -1,63 +1,145 @@
-const themeToggle = document.getElementById('theme-toggle');
+// Clock
+function updateClock() {
+  const el = document.querySelector(".top-clock");
+  if (!el) return;
+  const now = new Date();
+  const options = { hour: "2-digit", minute: "2-digit" };
+  el.textContent = now.toLocaleTimeString([], options);
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-// Check if a theme preference is already stored in localStorage, otherwise default to dark mode
-if (localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark-mode');
-  themeToggle.innerHTML = '☀️'; // Sun icon for dark mode
-} else {
-  // Default to dark mode if nothing is stored
-  document.body.classList.add('dark-mode');
-  localStorage.setItem('theme', 'dark'); // Save dark mode as the default
-  themeToggle.innerHTML = '☀️'; // Sun icon for dark mode
+// Single active window loader (Hybrid H2)
+const appMap = {
+  home: "home",
+  about: "about.html",
+  socials: "socials.html",
+  blog: "blog-external"
+};
+
+async function loadApp(appKey) {
+  const shell = document.querySelector(".window-shell");
+  const frame = document.querySelector(".window-inner");
+  const titleEl = document.querySelector(".window-title");
+  const badgeEl = document.querySelector(".window-badge");
+
+  if (!shell || !frame) return;
+
+  // Active state on dock
+  document.querySelectorAll(".dock-item").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.app === appKey);
+  });
+
+  // Home is built-in
+  if (appKey === "home") {
+    titleEl.textContent = "KatnissOS · Desktop overview";
+    badgeEl.textContent = "Kat · she/her · Quantum Drift";
+    frame.innerHTML = document.querySelector("#home-template").innerHTML;
+    shell.classList.remove("glow-pulse");
+    void shell.offsetWidth;
+    shell.classList.add("glow-pulse");
+    return;
+  }
+
+  // Blog external
+  if (appKey === "blog") {
+    window.open("http://blog.katnissxd.xyz", "_blank");
+    return;
+  }
+
+  const url = appMap[appKey];
+  if (!url) return;
+
+  try {
+    const res = await fetch(url);
+    const html = await res.text();
+    frame.innerHTML = html;
+    titleEl.textContent =
+      appKey === "about"
+        ? "KatnissOS · About Kat"
+        : appKey === "socials"
+        ? "KatnissOS · Socials & presence"
+        : "KatnissOS";
+
+    badgeEl.textContent =
+      appKey === "about"
+        ? "Profile · she/her"
+        : appKey === "socials"
+        ? "Live presence · Discord"
+        : "KatnissOS";
+
+    shell.classList.remove("glow-pulse");
+    void shell.offsetWidth;
+    shell.classList.add("glow-pulse");
+
+    if (appKey === "socials") {
+      initLanyard();
+    }
+  } catch (err) {
+    frame.innerHTML = `
+      <div class="page-fragment">
+        <h1>Something glitched.</h1>
+        <p class="muted">I couldn’t load that window just now. Try again in a moment.</p>
+      </div>
+    `;
+  }
 }
 
-// Toggle the theme on button click
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  
-  // If dark mode is activated, set it in localStorage
-  if (document.body.classList.contains('dark-mode')) {
-    localStorage.setItem('theme', 'dark');
-    themeToggle.innerHTML = '☀️'; // Sun icon for dark mode
-  } else {
-    localStorage.setItem('theme', 'light');
-    themeToggle.innerHTML = '🌙'; // Moon icon for light mode
-  }
+// Dock click handling
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".dock-item");
+  if (!btn) return;
+  const appKey = btn.dataset.app;
+  if (!appKey) return;
+  loadApp(appKey);
 });
 
-// Fetching Discord status using your Discord User ID
-const discordUserID = "1454841600974000159"; 
+// Lanyard presence
+async function initLanyard() {
+  const statusDot = document.querySelector(".presence-status");
+  const activityEl = document.querySelector("[data-lanyard-activity]");
+  const usernameEl = document.querySelector("[data-lanyard-username]");
+  if (!statusDot || !activityEl) return;
 
-fetch(`https://api.lanyard.rest/v1/users/${discordUserID}`)
-  .then(response => response.json())
-  .then(data => {
-    const discordStatusElement = document.getElementById("discord-status");
+  const DISCORD_ID = "1454841600974000159";
+  const url = `https://api.lanyard.rest/v1/users/${1454841600974000159}`;
 
-    if (data.data) {
-      const { activities, discord_status, avatar } = data.data;
-      const activity = activities ? activities[0] : null;
-      
-      // Construct the avatar URL
-      const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUserID}/${avatar}.png`;
+  if (usernameEl) {
+    usernameEl.textContent = "@katnissxd";
+  }
 
-      // Display activity details (e.g., playing a game)
-      if (activity) {
-        discordStatusElement.innerHTML = `
-          <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
-          <p>Status: ${discord_status}</p>
-          <p>Playing: ${activity.name}</p>
-          <p>Details: ${activity.details}</p>
-        `;
-      } else {
-        discordStatusElement.innerHTML = `
-          <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
-          <p>Currently not playing any games.</p>
-        `;
-      }
-    } else {
-      discordStatusElement.innerHTML = "<p>Unable to fetch status. Please try again later.</p>";
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!data.success) {
+      activityEl.textContent = "Presence unavailable right now.";
+      statusDot.style.background = "#6b7280";
+      return;
     }
-  })
-  .catch(() => {
-    document.getElementById("discord-status").innerHTML = "<p>Failed to fetch Discord status.</p>";
-  });
+
+    const { discord_status, activities } = data.data;
+
+    const statusColors = {
+      online: "#22c55e",
+      idle: "#facc15",
+      dnd: "#ef4444",
+      offline: "#6b7280"
+    };
+    statusDot.style.background = statusColors[discord_status] || "#6b7280";
+
+    const activity = activities.find(a => a.type === 0) || activities[0];
+    if (activity) {
+      activityEl.textContent = `${activity.name}${activity.state ? " — " + activity.state : ""}`;
+    } else {
+      activityEl.textContent = "Just vibing in the background.";
+    }
+  } catch (err) {
+    activityEl.textContent = "Presence unavailable right now.";
+    statusDot.style.background = "#6b7280";
+  }
+}
+
+// Initial load
+document.addEventListener("DOMContentLoaded", () => {
+  loadApp("home");
+});
