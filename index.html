@@ -1,117 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>KatnissOS — Desktop</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="nebula-layer"></div>
-  <div class="nebula-layer secondary"></div>
-  <div class="particle-field"></div>
+<div class="page-fragment">
+  <h1>Hey, I'm Kat.</h1>
+  <p>
+    This is KatnissOS — my quantum-drift little operating system on the web.  
+    One window at a time, you get to peek into my world.
+  </p>
 
-  <div class="top-bar">
-    <div class="top-left">
-      <div class="window-dots">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-      </div>
-      <span class="top-title">KatnissOS · Quantum Drift</span>
-    </div>
-    <div class="top-right">
-      <span class="top-username">♡ Mimi</span>
-      <span class="top-clock"></span>
-    </div>
+  <p class="muted">
+    she/her · digital spaces enjoyer · OS-core, nebula-coded
+  </p>
+
+  <div class="quick-links">
+    <a class="button" href="about.html">📁 Open About</a>
+    <a class="button" href="socials.html">🌐 Open Socials</a>
+    <a class="button" href="http://blog.katnissxd.xyz" target="_blank">📝 Open Blog</a>
   </div>
 
-  <div class="desktop">
-    <div class="window-shell glow-pulse">
-      <div class="window-frame">
-        <div class="window-inner">
-          <div class="window-header">
-            <div class="window-title">KatnissOS · Desktop overview</div>
-            <div class="window-badge">Kat · she/her · Quantum Drift</div>
-          </div>
-          <div class="window-body" id="window-content">
-            <!-- Home content will be injected here -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <section class="card">
+    <h2 style="font-size:18px;margin-top:0;">System overview</h2>
+    <ul class="info-list">
+      <li>
+        <span class="info-label">User</span>
+        <span>Kat</span>
+      </li>
+      <li>
+        <span class="info-label">Pronouns</span>
+        <span>she/her</span>
+      </li>
+      <li>
+        <span class="info-label">Mode</span>
+        <span>Quantum Drift · Dual-Tone Nebula</span>
+      </li>
+    </ul>
+  </section>
 
-  <!-- Dock -->
-  <div class="dock">
-    <button class="dock-item active" data-app="home" title="Desktop">⌘</button>
-    <button class="dock-item" data-app="about" title="About">📁</button>
-    <button class="dock-item" data-app="socials" title="Socials">🌐</button>
-    <button class="dock-item" data-app="blog" title="Blog">📝</button>
-  </div>
+  <a class="presence-link" href="https://lanyard.cnrad.dev" target="_blank">
+    🟢 Check my live Discord status
+  </a>
+</div>
 
-  <!-- Home template -->
-  <template id="home-template">
-    <div class="window-body">
-      <div>
-        <h1 class="hero-title">Hey, I’m Kat.</h1>
-        <p class="hero-subtitle">
-          This is KatnissOS — my quantum‑drift little operating system on the web. One window at a time,
-          you get to peek into my world.
-        </p>
-
-        <div class="chip-row">
-          <span class="chip">she/her</span>
-          <span class="chip">digital spaces enjoyer</span>
-          <span class="chip">OS‑core, nebula‑coded</span>
-        </div>
-
-        <div class="links-row">
-          <a href="javascript:void(0)" class="link-pill" onclick="loadApp('about')">
-            <span>📁</span>
-            <span>Open About</span>
-          </a>
-          <a href="javascript:void(0)" class="link-pill" onclick="loadApp('socials')">
-            <span>🌐</span>
-            <span>Open Socials</span>
-          </a>
-          <a href="http://blog.katnissxd.xyz" class="link-pill" target="_blank">
-            <span>📝</span>
-            <span>Open Blog</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <div class="info-header">
-          <span>System overview</span>
-          <span class="muted">User profile</span>
-        </div>
-        <ul class="info-list">
-          <li>
-            <span class="info-label">User</span>
-            <span>Kat</span>
-          </li>
-          <li>
-            <span class="info-label">Pronouns</span>
-            <span>she/her</span>
-          </li>
-          <li>
-            <span class="info-label">Mode</span>
-            <span>Quantum Drift · Dual‑Tone Nebula</span>
-          </li>
-        </ul>
-        <div class="links-row">
-          <a href="javascript:void(0)" class="link-pill" onclick="loadApp('socials')">
-            <span>🟢</span>
-            <span>Check my live Discord status</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </template>
-
-  <script src="script.js"></script>
-</body>
-      </html>
+<!-- Dock -->
+<div class="dock">
+  <a href="index.html" class="dock-item active" title="Desktop">⌘</a>
+  <a href="about.html" class="dock-item" title="About">📁</a>
+  <a href="socials.html" class="dock-item" title="Socials">🌐</a>
+  <a href="http://blog.katnissxd.xyz" class="dock-item" title="Blog" target="_blank">📝</a>
+</div>
