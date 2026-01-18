@@ -102,7 +102,7 @@ async function initLanyard() {
   if (!statusDot || !activityEl) return;
 
   const DISCORD_ID = "1454841600974000159";
-  const url = `https://api.lanyard.rest/v1/users/${1454841600974000159}`;
+  const url = `https://api.lanyard.rest/v1/users/1454841600974000159`;
 
   if (usernameEl) {
     usernameEl.textContent = "@katnissxd";
