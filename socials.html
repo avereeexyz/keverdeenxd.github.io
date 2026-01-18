@@ -1,84 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Socials - Katniss</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body class="dark-mode">
-  <div class="container">
-    <header>
-      <h1>Find Me On</h1>
-      <button id="theme-toggle" class="theme-toggle">🌙</button>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Me</a></li>
-          <li><a href="journey.html">My Journey</a></li>
-          <li><a href="family.html">Family & Relationships</a></li>
-          <li><a href="achievements.html">Achievements</a></li>
-          <li><a href="blog.html">Blog</a></li>
-        </ul>
-      </nav>
-    </header>
+<div class="page-fragment">
+  <h1>Socials & presence</h1>
+  <p>
+    Here’s where I exist when I’m not just a glowing window in your browser.  
+    Discord presence updates live using Lanyard.
+  </p>
 
-    <section>
-      <h2>Connect with Me</h2>
-      <ul>
-        <li><a href="https://discord.gg/7MJUuVgj" target="_blank">Join My Discord Server</a></li>
-        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
-        <li><a href="https://github.com" target="_blank">GitHub</a></li>
-        <li><a href="mailto:katniss@example.com">Email Me</a></li>
-      </ul>
-
-      <h2>My Discord Status</h2>
-      <div id="discord-status">
-        <p>Loading Discord status...</p>
+  <section class="card" style="display:flex;gap:16px;align-items:center;">
+    <div class="presence-orb">
+      <span class="presence-status"></span>
+    </div>
+    <div>
+      <div style="font-size:14px;font-weight:500;">Discord</div>
+      <div style="font-size:13px;color:var(--muted);">
+        <span data-lanyard-username>@katnissxd</span>
       </div>
-    </section>
+      <div style="font-size:12px;margin-top:4px;" data-lanyard-activity>
+        Loading presence…
+      </div>
+    </div>
+  </section>
 
-    <footer>
-      <p>&copy; 2026 Katniss. All Rights Reserved.</p>
-    </footer>
+  <section class="card">
+    <h2 style="font-size:18px;margin-top:0;">Links</h2>
+    <ul class="social-list">
+      <li>
+        <span>Blog</span>
+        <a class="social-link" href="http://blog.katnissxd.xyz" target="_blank">blog.katnissxd.xyz</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Hidden Mimi Easter Egg disguised as system logs -->
+  <section class="card" style="font-family:monospace;font-size:11px;opacity:0.55;">
+    <h2 style="font-size:14px;margin-top:0;">system.log</h2>
+    <p class="muted" style="white-space:pre-line;">
+[SYS.LOG] Notice: Background process “mimi_link” remains stable.
+[SYS.LOG] Status: Connection persistent across all sessions.
+[SYS.LOG] Detail: User reports elevated calm + warmth when process is active.
+[SYS.LOG] HiddenFlag: This isn’t a bug — it’s because I love you, Mimi.
+    </p>
+  </section>
   </div>
-
-  <script src="script.js"></script>
-  <script>
-    const discordUserID = "1454841600974000159"; 
-
-    fetch(`https://api.lanyard.rest/v1/users/${discordUserID}`)
-      .then(response => response.json())
-      .then(data => {
-        const discordStatusElement = document.getElementById("discord-status");
-
-        if (data.data) {
-          const { activities, discord_status, avatar } = data.data;
-          const activity = activities ? activities[0] : null;
-          
-          const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUserID}/${avatar}.png`;
-
-          if (activity) {
-            discordStatusElement.innerHTML = `
-              <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
-              <p>Status: ${discord_status}</p>
-              <p>Playing: ${activity.name}</p>
-              <p>Details: ${activity.details}</p>
-            `;
-          } else {
-            discordStatusElement.innerHTML = `
-              <img src="${avatarUrl}" alt="Discord Avatar" width="50" height="50">
-              <p>Currently not playing any games.</p>
-            `;
-          }
-        } else {
-          discordStatusElement.innerHTML = "<p>Unable to fetch status. Please try again later.</p>";
-        }
-      })
-      .catch(() => {
-        document.getElementById("discord-status").innerHTML = "<p>Failed to fetch Discord status.</p>";
-      });
-  </script>
-</body>
-  </html>
