@@ -6,9 +6,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Apple system font */
-  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green for Dark Mode */
-  color: #e0f7fa; /* Light text color */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Lavender */
+  color: #e0f7fa; /* Light text */
   transition: background 0.5s ease, color 0.5s ease;
   font-size: 16px;
   height: 100vh;
@@ -16,11 +16,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .container {
   width: 90%;
-  max-width: 900px;
+  max-width: 800px;
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -29,14 +30,14 @@ body {
 }
 
 header {
-  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Mode Header */
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark mode header */
   padding: 20px;
   text-align: center;
   border-radius: 16px 16px 0 0;
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #fff;
   margin-bottom: 20px;
 }
@@ -114,18 +115,44 @@ a:hover {
 footer {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green for Dark Mode */
+  background: linear-gradient(135deg, #3d1e55, #b3e6b3); /* Dark Purple to Light Green */
   margin-top: 30px;
   border-radius: 0 0 16px 16px;
 }
 
+button.control-button {
+  width: 12px;
+  height: 12px;
+  margin: 0 8px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.control-button:hover {
+  transform: scale(1.2);
+}
+
+button.control-button.red {
+  background-color: #f44336; /* Red button */
+}
+
+button.control-button.yellow {
+  background-color: #ffeb3b; /* Yellow button */
+}
+
+button.control-button.green {
+  background-color: #4caf50; /* Green button */
+}
+
 .light-mode {
-  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink */
   color: #333; /* Dark text for light mode */
 }
 
 .light-mode header {
-  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Mode Header */
 }
 
 .light-mode button.theme-toggle {
@@ -134,7 +161,7 @@ footer {
 }
 
 .light-mode button.theme-toggle:hover {
-  background-color: #b3e6b3; /* Light mode hover effect */
+  background-color: #b3e6b3;
 }
 
 .light-mode nav ul li a {
@@ -146,7 +173,7 @@ footer {
 }
 
 .light-mode footer {
-  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink for Light Mode */
+  background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Mode Footer */
 }
 
 @media (max-width: 600px) {
@@ -170,4 +197,4 @@ footer {
 
 body {
   animation: fadeIn 0.5s ease-in;
-}
+  }
