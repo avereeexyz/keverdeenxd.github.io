@@ -12,7 +12,7 @@
   <h1>Socials & presence</h1>
   <p>
     Here’s where I exist when I’m not just a glowing window in your browser.  
-    Discord presence updates live using Lanyard.
+    Discord presence updates live using the Lanyard REST API.
   </p>
 
   <section class="card" style="display:flex;gap:16px;align-items:center;">
@@ -22,7 +22,7 @@
     <div>
       <div style="font-size:14px;font-weight:500;">Discord</div>
       <div style="font-size:13px;color:var(--muted);">
-        <span data-lanyard-username>@katnissxd</span>
+        <span>@katnissxd</span>
       </div>
       <div style="font-size:12px;margin-top:4px;" data-lanyard-activity>
         Loading presence…
@@ -40,6 +40,7 @@
     </ul>
   </section>
 
+  <!-- Hidden Mimi Easter Egg disguised as system logs -->
   <section class="card" style="font-family:monospace;font-size:11px;opacity:0.55;">
     <h2 style="font-size:14px;margin-top:0;">system.log</h2>
     <p class="muted" style="white-space:pre-line;">
@@ -51,12 +52,55 @@
   </section>
 </div>
 
+<!-- Dock -->
 <div class="dock">
   <a href="index.html" class="dock-item" title="Desktop">⌘</a>
   <a href="about.html" class="dock-item" title="About">📁</a>
   <a href="socials.html" class="dock-item active" title="Socials">🌐</a>
   <a href="http://blog.katnissxd.xyz" class="dock-item" title="Blog" target="_blank">📝</a>
 </div>
+
+<!-- Inline presence script using your exact URL -->
+<script>
+  async function loadPresence() {
+    const url = "https://api.lanyard.rest/v1/users/1454841600974000159";
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (!data.success) return;
+
+      const presence = data.data;
+
+      const statusEl = document.querySelector(".presence-status");
+      const activityEl = document.querySelector("[data-lanyard-activity]");
+
+      // Update status class
+      if (statusEl) {
+        statusEl.className = "presence-status " + presence.discord_status;
+      }
+
+      // Update activity text
+      if (activityEl) {
+        if (presence.activities && presence.activities.length > 0) {
+          activityEl.textContent = presence.activities[0].name;
+        } else {
+          activityEl.textContent = "Online";
+        }
+      }
+
+    } catch (err) {
+      console.error("Presence fetch error:", err);
+    }
+  }
+
+  // Load immediately
+  loadPresence();
+
+  // Refresh every 15 seconds
+  setInterval(loadPresence, 15000);
+</script>
 
 </body>
 </html>
