@@ -127,10 +127,14 @@ async function initLanyard() {
     };
     statusDot.style.background = statusColors[discord_status] || "#6b7280";
 
-    const activity = activities.find(a => a.type === 0) || activities[0];
-    if (activity) {
-      activityEl.textContent = `${activity.name}${activity.state ? " — " + activity.state : ""}`;
-    } else {
+    const activity = activities.find(a => a.type === 1) || activities[1];
+    if (activity.type === 2) {
+      activityEl.textContent = `Listening to ${activity.details} by ${activity.state} on ${activity.name}`;
+    }
+    else if (activity) {
+      activityEl.textContent = `doing something else`;
+    }
+    else {
       activityEl.textContent = "Just vibing in the background.";
     }
   } catch (err) {
@@ -142,4 +146,5 @@ async function initLanyard() {
 // Initial load
 document.addEventListener("DOMContentLoaded", () => {
   loadApp("home");
+  initLanyard();
 });
