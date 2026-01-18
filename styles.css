@@ -120,32 +120,48 @@ footer {
   border-radius: 0 0 16px 16px;
 }
 
-button.control-button {
-  width: 12px;
-  height: 12px;
-  margin: 0 8px;
-  border-radius: 50%;
+.macos-dock {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7); /* Dark translucent background */
+  width: 90%;
+  height: 70px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.macos-dock button {
+  background: none;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, scale 0.3s ease;
 }
 
-button.control-button:hover {
-  transform: scale(1.2);
+.macos-dock button:hover {
+  transform: translateY(-5px);
+  scale: 1.1;
 }
 
-button.control-button.red {
-  background-color: #f44336; /* Red button */
+.macos-dock button i {
+  font-size: 24px;
+  color: #e0f7fa;
 }
 
-button.control-button.yellow {
-  background-color: #ffeb3b; /* Yellow button */
+.macos-dock button:focus {
+  outline: none;
 }
 
-button.control-button.green {
-  background-color: #4caf50; /* Green button */
-}
+.macos-dock button.home i { color: #ffeb3b; }  /* Yellow for home */
+.macos-dock button.about i { color: #f44336; } /* Red for about */
+.macos-dock button.journey i { color: #4caf50; } /* Green for journey */
+.macos-dock button.socials i { color: #2196f3; } /* Blue for socials */
 
+/* Light mode style */
 .light-mode {
   background: linear-gradient(135deg, #a8e6cf, #ffb6c1); /* Light Green to Pink */
   color: #333; /* Dark text for light mode */
